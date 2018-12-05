@@ -1,0 +1,60 @@
+@page {
+    size: letter portrait;
+    margin:0mm; /*this removes the url and page numbers from the top and bottom margins */
+}
+
+
+
+
+.page {
+    page-break-after:always; 
+    page-break-before:always; 
+}
+
+section {
+    margin: 0;
+}
+
+
+
+#cover {background:#666666;}
+
+
+@media print only {
+    body {
+        background: #997788;
+        -webkit-print-color-adjust: exact;
+        margin:0;
+        padding: 0;
+    }
+    
+    .full-page { 
+        width:100vw; 
+        height:100vh;
+        max-width: 100vw;
+        max-height: 100vh;
+    }
+}
+
+
+
+/* With default margins, print-view on Chrome is 731:946 px */
+
+@media only screen {
+    body {background: black;}
+    .book {background: white; padding: 50px; width: 731px;}
+    .page {height: 946px; max-height: 946px; 731px; width: 731px;}
+    /*.content {
+        column-count: 2;
+    }*/
+    .page::before {
+    background: #000000;
+    height: 3px;
+    display: block;
+    content: "";
+    width: 100%;
+    margin: 10px 0;
+    }
+    
+    .screenonly {display:block !important;}
+}

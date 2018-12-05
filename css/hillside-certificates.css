@@ -1,0 +1,73 @@
+body {
+        background: url(../images/hbtc_rank_certificate_background_letter.jpg);
+        background-size: cover;
+        -webkit-print-color-adjust: exact;
+        margin:0;
+        padding: 0;
+    }
+    
+.full-page { 
+        width:100vw; 
+        height:100vh;
+        max-width: 100vw;
+        max-height: 100vh;
+}
+
+ .rank-certificate header {
+     position: fixed;
+     background: rgba(255,255,255,0.8);
+     width: 100%;
+     top:0;
+}
+
+article {
+    margin: 9em;
+    text-align: center;
+    font-family: fantasy
+}
+
+.title h1 {
+    font-size: 80px;
+    font-family: cursive;
+    font-weight: 100;
+    margin: 0;
+    line-height: 100px;
+}
+
+.name {
+    font-size: 60px;
+    margin: 0;
+    font-family: cursive;
+    line-height: 32px;
+}
+
+.rank, .date {
+    font-family: cursive;
+    font-size: 40px;
+    line-height: 40px;
+}
+
+.stripe {
+    width: 25px;
+    height: 100vh;
+    position: absolute;
+    float:left;
+    top: 0;
+}
+
+.stripe1 {left:75vw;}
+.stripe2 {left:85vw;}
+
+
+body.smac {
+        background: url(../images/SMAC-Majestic%202017%20background%20letter.jpg);
+        background-size: cover;
+    }
+
+.smac .body p {
+    margin: 1em 0 0;
+}
+
+.smac .promoted-to p {
+    margin: 1.5em 0 0;
+}
