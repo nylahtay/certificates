@@ -1,7 +1,5 @@
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <link rel="stylesheet" type="text/css" href="css/reset.css" media="all">
         <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
         <link rel="stylesheet" type="text/css" href="css/smac-certificates.css" media="all">
@@ -10,100 +8,11 @@
                 size: letter landscape;
                 margin:0mm; /*this removes the url and page numbers from the top and bottom margins */
             }
-            
-            .delete_option {    border-radius: 5px; padding: 1px 7px; background: #cc2c2c; color: white; font-size: 13px; font-family: sans-serif;}
-            .add_option { border-radius: 5px; padding: 3px 10px; background: #3f4aa5; color: white; display: inline-block; font-size: 13px; font-family: sans-serif;}
         </style>
-        
-        
-        
-        <script>
-            var nameindex = 0;
-            var form_data = [];
-            
-            function addField() {
-                var all_students = document.getElementById("all_students");
-                var i = all_students.childElementCount;
-                all_students.insertAdjacentHTML('beforeend', `<li>
-<input name="student${nameindex}" id="student${nameindex}" placeholder="Full Name">
-<select name="student${nameindex}" id="student${nameindex}">
-                    <option value="yellow">8th Grade Yellow Belt</option>
-                    <option value="green">6th Grade Green Belt</option>
-                    <option value="blue">4th Grade Blue Belt</option>
-                    <option value="purple">4th Grade Purple Belt</option>
-                    <option value="red">2th Grade Red Belt</option>
-                    <option value="pink">2th Grade Pink Belt</option>
-                    <option value="black-r">Black Belt Ready</option>
-                    <option value="black-1">1st Degree Black Belt</option>
-                    <option value="black-2">2nd Degree Black Belt</option>
-                    <option value="black-3">3rd Degree Black Belt</option>
-                    <option value="black-4">4th Degree Black Belt</option>
-                    <option value="black-5">5th Degree Black Belt</option>
-                    <option value="black-6">6th Degree Black Belt</option>
-                  </select>
-<span class="delete_option" onclick="deleteField(this)">- Delete</span>
-</li>`);
-                nameindex++;
-            }
-
-
-            function deleteField(element) {
-
-                //delete the selected field
-                deleted_field = element.parentElement;
-                deleted_field.outerHTML = "";
-                delete deleted_field;
-
-                //clean up the remaining fields
-                //Description: After a field was deleted we needed to resort the existing fields so that the array would be updated
-                var all_students = document.getElementById("all_students");
-                var number_of_students = all_students.childElementCount;
-                var c = all_students.children;
-                var i=0;
-                while(i < number_of_students) {
-                    var field = c[i].firstChild;
-                    field.id = 'ranks['+i+']';  // using element properties
-                    field.setAttribute('name', 'ranks['+i+']');  // using .setAttribute() method
-                    i++;
-                }
-                nameindex = number_of_students;
-            }
-            
-            
-        </script>
     </head>
-
-    <body>
-        
-    
-        
-        
-        <div class="screenonly details" style="display: none;">
-            
-            <h1>Certificate Details</h1>
-            <form name="certificateform" actopm="/echo/html/" method="post">
-                Date of Test: <input type="text" name="date" value="January 4th 2019"/><br>
-                <hr>
-                <ul id="all_students"></ul>
-                <div id="add_option_nt_disciplines" class="add_option" onclick="addField()">+ Add Field</div>
-                <hr>
-                <div class="center">
-                    <input type="button" style="display: none;" name="submit" value="OLD"/>
-                    <input type="button" name="generate" value="Print Certificates"/>
-                </div>
-            </form>
-            <div style="margin: 6em;"></div>
-            <h1>How To Print</h1>
-            <p>When the print dialog appears, be sure the background images option is selected! (Sometimes it is hidden under <strong>more settings</strong>)</p>
-            <img src="images/example_print.png" style="max-width: 500px; width:100%; text-align: center; border: solid 3px green; border-radius: 10px;">
-        </div>
-        
-        
-        <article class="certificates print">
+    <body class="certificates print">
         <script>
-            
-            var student_data = [
-                
+            const student_data = [
                 ['John Doe','yellow','July 25,2018'],
                 ['Jane Doe','green','July 25,2018'],
                 ['Kiko Garcia','red','July 25,2018'],
@@ -113,105 +22,77 @@
                 
             ];
             
-            addField(); //this adds the first set of fields to add a student
-        
-            
-            var form = document.forms.certificateform;
-                elem = form.elements;
-            elem.date.onchange = function(){
-                //alert('form name is : ' + this.form.name);
-            };
-            elem.submit.onclick = function(){
-                elem = form.elements;
-                generateCertificates();
-                certificatesHTML.innerHTML = innerHTMLcontent;
-            };
-            elem.generate.onclick = function(){
-                var i = 1;
-                var student_data_i = 0;
-                student_data = [];
-                while(0 < i  && i < form.elements.length-2){
-                    /*student_data[student_data_i][0] = form.elements[i].value;
-                    student_data[student_data_i][1] = form.elements[i+1].value;
-                    student_data[student_data_i][2] = form.elements[0].value;*/
-                    student_data.push([form.elements[i].value, form.elements[i+1].value, form.elements[0].value]);
-                    i=i+2;
-                }
-                generateCertificates();
-                certificatesHTML.innerHTML = innerHTMLcontent;
-                window.print();
-                
-            };
-            
-            
-            
-            let certificatesHTML = document.getElementsByTagName("ARTICLE")[0];
+            let certificatesHTML = document.getElementsByTagName("BODY")[0];
             let innerHTMLcontent = "";
-            function generateCertificates(){
-                innerHTMLcontent = "";
-                i = 0;                
-                while (i < student_data.length){
-                    let belt_rank = "";
-                    switch (student_data[i][1]) {
-                        case "yellow":
-                            belt_rank = "8th Grade Yellow Belt";
-                        break;
-                        case "green":
-                            belt_rank = "6th Grade Green Belt";
-                        break;
-                        case "blue":
-                            belt_rank = "4th Grade Blue Belt";
-                        break;
-                        case "purple":
-                            belt_rank = "4th Grade Purple Belt";
-                        break;
-                        case "red":
-                             belt_rank = "2th Grade Red Belt";
-                        break;
-                        case "pink":
-                             belt_rank = "2th Grade Pink Belt";
-                        break;
-                        case "black-r":
-                             belt_rank = "Black Belt Ready";
-                        break;
-                        case "black-1":
-                             belt_rank = "1st Degree Black Belt";
-                        break;
-                        case "black-2":
-                             belt_rank = "2nd Degree Black Belt";
-                        break;
-                        case "black-3":
-                             belt_rank = "3rd Degree Black Belt";
-                        break;
-                        case "black-4":
-                             belt_rank = "4th Degree Black Belt";
-                        break;
-                        case "black-5":
-                             belt_rank = "5th Degree Black Belt";
-                        break;
-                        case "black-6":
-                             belt_rank = "6th Degree Black Belt";
-                        break;
-                    }
-                    innerHTMLcontent += `<article class="full-page page certificate rank-certificate tkd smac">
-                <div class="certificate-inside">
-                    <div class="title"><h1>Certificate of Rank</h1></div>
-                    <div class="intro"><p>This is to certify that</p></div>
-
-                    <div class="name">${student_data[i][0]}</div>
-
-                    <div class="promoted-to"><p>has been promoted to</p></div>
-                    <div class="rank">${belt_rank}</span></div>
-                    <div class="body"><p>in accordance with the qualifications set by Springfield Martial Arts Center and Majestic Martial Arts and Self Defense Association and approved by a board of qualified instructors and judges of Chang Hon TaeKwonDo on this day:</p></div>
-                    <div class="date">${student_data[i][2]}</div>
-                    <div class="stripe stripe1"></div>
-                    <div class="stripe stripe2"></div>
-                </div>
-            </article>`;
-                    i++;
+            
+            i = 0;                
+            while (i < student_data.length){
+                let belt_rank = "";
+                switch (student_data[i][1]) {
+                    case "yellow":
+                        belt_rank = "8th Grade Yellow Belt";
+                    break;
+                    case "green":
+                        belt_rank = "6th Grade Green Belt";
+                    break;
+                    case "blue":
+                        belt_rank = "4th Grade Blue Belt";
+                    break;
+                    case "purple":
+                        belt_rank = "4th Grade Purple Belt";
+                    break;
+                    case "red":
+                         belt_rank = "2th Grade Red Belt";
+                    break;
+                    case "pink":
+                         belt_rank = "2th Grade Pink Belt";
+                    break;
+                    case "black-r":
+                         belt_rank = "Black Belt Ready";
+                    break;
+                    case "black-1":
+                         belt_rank = "1st Degree Black Belt";
+                    break;
+                    case "black-2":
+                         belt_rank = "2nd Degree Black Belt";
+                    break;
+                    case "black-3":
+                         belt_rank = "3rd Degree Black Belt";
+                    break;
+                    case "black-4":
+                         belt_rank = "4th Degree Black Belt";
+                    break;
+                    case "black-5":
+                         belt_rank = "5th Degree Black Belt";
+                    break;
+                    case "black-6":
+                         belt_rank = "6th Degree Black Belt";
+                    break;
                 }
+                innerHTMLcontent += `<article class="full-page page certificate rank-certificate tkd smac">
+            <div class="certificate-inside">
+                <div class="title"><h1>Certificate of Rank</h1></div>
+                <div class="intro"><p>This is to certify that</p></div>
+
+                <div class="name">${student_data[i][0]}</div>
+
+                <div class="promoted-to"><p>has been promoted to</p></div>
+                <div class="rank">${belt_rank}</span></div>
+                <div class="body"><p>in accordance with the qualifications set by Springfield Martial Arts Center and Majestic Martial Arts and Self Defense Association and approved by a board of qualified instructors and judges of Chang Hon TaeKwonDo on this day:</p></div>
+                <div class="date">${student_data[i][2]}</div>
+                <div class="stripe stripe1"></div>
+                <div class="stripe stripe2"></div>
+            </div>
+        </article>`;
+                i++;
             }
+            certificatesHTML.innerHTML = innerHTMLcontent;
         </script>
-        </article>
+        <header class="screenonly" style="display: none;">
+            <div>
+                <a class="button">Print</a>
+            </div>
+            <div><span>How to Print</span></div>
+        </header>
     </body>
 </html>
