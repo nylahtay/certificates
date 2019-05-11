@@ -28,28 +28,33 @@ article.rank-certificate {
 .certificate-inside {
     padding: 9em;
     text-align: center;
-    font-family: fantasy
+    font-family: Redressed, fantasy;
 }
 
 .title h1 {
-    font-size: 80px;
-    font-family: cursive;
-    font-weight: 100;
-    margin: 0;
+    font-size: 120px;
+    font-family: Italianno, cursive;
+    font-weight: 300;
+    margin: 30px 0 0 0;
     line-height: 100px;
+}
+
+.intro p {
+    margin: 0;
 }
 
 .name {
     font-size: 60px;
-    margin: 0;
-    font-family: cursive;
+    margin: 20px 0 0 0;
+    font-family: Italianno, cursive;
     line-height: 32px;
 }
 
 .rank, .date {
-    font-family: cursive;
+    font-family: Italianno, cursive;
     font-size: 40px;
     line-height: 40px;
+    margin: 10px 0 0 0;
 }
 
 .stripe {
@@ -77,6 +82,9 @@ article.rank-certificate {
 
 @media only screen {
     .certificates {display: none;}
+}
+@media only print {
+    .certificates {display: block;}
 }
 @media only screen  {
     .details {
